@@ -1,0 +1,698 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#09080d">
+  <meta name="description" content="Biblioteca de Prompts: material prático para organizar ideias e criar conteúdos com IA para TikTok Shop.">
+  <script>
+    try { if (sessionStorage.getItem('bp-intro-completed-v2') !== '1') document.documentElement.classList.add('bp-intro-active'); }
+    catch (_) { document.documentElement.classList.add('bp-intro-active'); }
+  </script>
+  <link rel="stylesheet" href="intro.css">
+  <title>Biblioteca de Prompts | Conteúdo com IA para TikTok Shop</title>
+  <style>
+    :root {
+      color-scheme: dark;
+      --ink: #f8f5f1;
+      --muted: #b8b1bd;
+      --bg: #09080d;
+      --panel: #131017;
+      --panel-soft: #1c1422;
+      --gold: #ffd36b;
+      --gold-deep: #ffad3d;
+      --violet: #a45bff;
+      --pink: #ff49c8;
+      --line: rgba(255,255,255,.1);
+      --radius: 24px;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      background:
+        radial-gradient(ellipse at 86% 10%, rgba(143,53,193,.19), transparent 31rem),
+        radial-gradient(ellipse at 7% 22%, rgba(177,112,29,.09), transparent 27rem),
+        var(--bg);
+      color: var(--ink);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+    }
+    a { color: inherit; }
+    img { display: block; max-width: 100%; }
+    .wrap { width: min(1160px, calc(100% - 40px)); margin-inline: auto; }
+    .topbar {
+      position: sticky; top: 0; z-index: 10;
+      background: rgba(9,8,13,.84); backdrop-filter: blur(18px);
+      border-bottom: 1px solid var(--line);
+    }
+    .nav { position: relative; min-height: 78px; display: flex; align-items: center; justify-content: space-between; gap: 20px; }
+    .brand { display: inline-flex; align-items: center; gap: 12px; text-decoration: none; }
+    .brand img { width: 48px; height: 48px; object-fit: cover; border-radius: 14px; }
+    .brand strong { display: block; font-size: .92rem; line-height: 1.05; letter-spacing: .07em; }
+    .brand-copy { display: block; }
+    .brand-copy strong { display: block; font-size: .92rem; line-height: 1.05; letter-spacing: .07em; }
+    .brand-copy span { display: block; margin-top: 4px; color: var(--gold); font-size: .7rem; letter-spacing: .18em; text-transform: uppercase; }
+    .nav-links { display: flex; align-items: center; gap: 28px; color: #d5cedb; font-size: .9rem; }
+    .nav-links a { text-decoration: none; }
+    .nav-links a:hover { color: var(--gold); }
+    section[id] { scroll-margin-top: 140px; }
+    .mobile-menu { display: none; position: relative; flex-shrink: 0; }
+    .mobile-menu summary { list-style: none; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 3px; min-width: 48px; min-height: 48px; padding: 4px; border: 0; border-radius: 0; color: var(--gold); cursor: pointer; background: transparent; }
+    .mobile-menu summary::-webkit-details-marker { display: none; }
+    .mobile-menu summary::marker { content: ""; }
+    .mobile-menu summary::before, .mobile-menu summary::after { content: none; display: none; }
+    .mobile-menu-label { font-size: .7rem; font-weight: 700; line-height: 1.2; }
+    .mobile-menu summary:focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; }
+    .mobile-menu summary svg { width: 22px; height: 22px; }
+    .mobile-menu-links { position: absolute; top: calc(100% + 12px); right: 0; display: grid; width: min(260px, calc(100vw - 28px)); padding: 8px; border: 1px solid var(--line); border-radius: 16px; background: #17111e; box-shadow: 0 18px 45px rgba(0,0,0,.45); }
+    .mobile-menu-links a { padding: 11px 13px; border-radius: 9px; text-decoration: none; font-size: .88rem; }
+    .mobile-menu-links a:hover { color: var(--gold); background: rgba(255,255,255,.05); }
+    .btn {
+      display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+      min-height: 52px; padding: 0 22px; border: 0; border-radius: 999px;
+      background: linear-gradient(105deg, var(--gold), #ffb74c 55%, #ff8f55);
+      color: #21140a; font-weight: 850; text-decoration: none; text-align: center;
+      box-shadow: 0 10px 35px rgba(255,173,61,.2); transition: transform .2s, box-shadow .2s;
+    }
+    .btn:hover { transform: translateY(-2px); box-shadow: 0 14px 38px rgba(255,173,61,.3); }
+    .btn-small { min-height: 42px; padding: 0 18px; font-size: .88rem; }
+    .btn-outline {
+      background: transparent; border: 1px solid rgba(255,255,255,.22); color: var(--ink); box-shadow: none;
+    }
+    .btn-outline:hover { border-color: var(--gold); box-shadow: none; }
+    .hero { padding: 20px 0 70px; overflow: hidden; }
+    .hero-grid { display: grid; grid-template-columns: 1fr; align-items: center; gap: 38px; }
+    .eyebrow {
+      display: inline-flex; align-items: center; gap: 9px; margin-bottom: 20px;
+      color: var(--gold); font-size: .75rem; font-weight: 800; letter-spacing: .19em; text-transform: uppercase;
+    }
+    h1, h2, h3, p { margin-top: 0; }
+    h1 { max-width: 720px; margin-bottom: 22px; font-size: clamp(2.55rem, 5vw, 4.7rem); line-height: .99; letter-spacing: -.055em; }
+    .shine { background: linear-gradient(100deg, var(--gold) 5%, #fff1bc 47%, #c785ff 100%); -webkit-background-clip: text; background-clip: text; color: transparent; }
+    .hero-copy { max-width: 610px; margin-bottom: 26px; color: #c9c1ce; font-size: 1.08rem; }
+    .hero-actions { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
+    .microcopy { margin: 15px 0 0; color: #9b93a1; font-size: .82rem; }
+    .hero-badges { display: flex; flex-wrap: wrap; gap: 9px; margin-top: 28px; }
+    .pill { border: 1px solid var(--line); border-radius: 999px; padding: 7px 12px; color: #d9d1dd; background: rgba(255,255,255,.035); font-size: .78rem; }
+    .visual { position: relative; width: 100%; max-width: 520px; justify-self: center; }
+    .hero-image {
+      display: block; width: 100%; height: auto; aspect-ratio: auto; object-fit: contain; border-radius: 30px;
+      border: 1px solid rgba(255,211,107,.35); box-shadow: 0 28px 90px rgba(0,0,0,.48), 0 0 70px rgba(164,91,255,.17);
+    }
+    .visual::before { content: ""; position: absolute; inset: -14px; z-index: -1; border-radius: 42px; background: linear-gradient(140deg, rgba(255,211,107,.36), transparent 32%, rgba(164,91,255,.4)); filter: blur(24px); }
+    .floating-card {
+      position: absolute; left: -35px; bottom: 30px; width: min(255px, 72%);
+      padding: 16px 18px; border: 1px solid rgba(255,255,255,.15); border-radius: 18px;
+      background: rgba(18,14,22,.91); box-shadow: 0 18px 48px rgba(0,0,0,.45); backdrop-filter: blur(12px);
+    }
+    .floating-card small { display: block; margin-bottom: 5px; color: var(--gold); font-weight: 800; letter-spacing: .12em; text-transform: uppercase; }
+    .floating-card strong { font-size: 1rem; }
+    .opening-video { padding: 72px 0 82px; border-block: 1px solid var(--line); background: linear-gradient(115deg, rgba(164,91,255,.065), transparent 48%, rgba(255,211,107,.045)); }
+    .opening-video-grid { display: grid; grid-template-columns: minmax(0,1fr) 340px; align-items: center; gap: 58px; }
+    .opening-video-copy { max-width: 660px; }
+    .opening-video-copy h2 { max-width: 620px; }
+    .opening-video-copy p { max-width: 560px; color: var(--muted); }
+    .opening-video-copy .microcopy { color: #a59aa9; }
+    .opening-video-frame { position: relative; width: 100%; padding: 8px; border: 1px solid rgba(255,211,107,.38); border-radius: 28px; background: linear-gradient(145deg, rgba(255,211,107,.14), rgba(164,91,255,.14)); box-shadow: 0 26px 80px rgba(0,0,0,.48), 0 0 60px rgba(164,91,255,.17); }
+    .opening-video-frame video { display: block; width: 100%; aspect-ratio: 9 / 16; object-fit: cover; border-radius: 20px; background: #050508; }
+    .ticker { border-block: 1px solid var(--line); background: rgba(255,255,255,.025); overflow: hidden; }
+    .ticker-inner { display: flex; justify-content: center; flex-wrap: wrap; gap: 14px 32px; padding: 17px 0; color: #c8c0cc; font-size: .77rem; font-weight: 800; letter-spacing: .14em; text-transform: uppercase; }
+    .ticker b { color: var(--gold); }
+    section { padding: 92px 0; }
+    .section-head { max-width: 720px; margin: 0 auto 42px; text-align: center; }
+    .section-head .eyebrow { justify-content: center; }
+    h2 { margin-bottom: 15px; font-size: clamp(2rem, 4vw, 3.35rem); line-height: 1.04; letter-spacing: -.04em; }
+    .section-head p, .muted { color: var(--muted); }
+    .intro-grid { display: grid; grid-template-columns: .86fr 1.14fr; gap: 54px; align-items: center; }
+    .intro-copy h2 { max-width: 510px; }
+    .intro-copy p { color: var(--muted); }
+    .check-list { list-style: none; padding: 0; margin: 24px 0 0; display: grid; gap: 13px; }
+    .check-list li { display: flex; align-items: flex-start; gap: 11px; color: #e4dce8; }
+    .check { flex: 0 0 22px; display: grid; place-items: center; width: 22px; height: 22px; border-radius: 50%; background: rgba(255,211,107,.14); color: var(--gold); font-size: .8rem; font-weight: 900; }
+    .image-frame { overflow: hidden; border: 1px solid var(--line); border-radius: var(--radius); background: var(--panel); }
+    .image-frame img { width: 100%; height: 100%; object-fit: cover; }
+    .intro-image { height: auto; }
+    .intro-image img { display: block; height: auto; object-fit: contain; }
+    .how { background: linear-gradient(180deg, transparent, rgba(164,91,255,.045), transparent); }
+    .steps { display: grid; grid-template-columns: repeat(3,1fr); gap: 16px; }
+    .step {
+      position: relative; padding: 27px; border: 1px solid var(--line); border-radius: 20px;
+      background: linear-gradient(145deg, rgba(255,255,255,.055), rgba(255,255,255,.018));
+    }
+    .step-num { display: inline-grid; place-items: center; width: 42px; height: 42px; margin-bottom: 20px; border-radius: 14px; color: #19101f; background: linear-gradient(140deg, var(--gold), #e2a6ff); font-weight: 900; }
+    .step h3 { margin-bottom: 9px; font-size: 1.15rem; }
+    .step p { margin-bottom: 0; color: var(--muted); font-size: .94rem; }
+    .multiplatform-banner { margin: 32px 0 0; }
+    .multiplatform-banner img { display: block; width: 100%; height: auto; }
+    .multiplatform-banner figcaption { padding: 16px 20px; color: var(--muted); font-size: .9rem; text-align: center; border-top: 1px solid var(--line); }
+    .gallery-grid { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 16px; align-items: stretch; }
+    .gallery-card { min-height: 0; overflow: hidden; position: relative; border: 1px solid var(--line); border-radius: 20px; background: var(--panel); }
+    .gallery-card img { display: block; width: 100%; height: auto; min-height: 0; object-fit: contain; }
+    .gallery-card:hover img { transform: none; }
+    .gallery-caption { position: relative; padding: 17px 19px 18px; border-top: 1px solid var(--line); background: rgba(7,6,10,.96); }
+    .gallery-caption strong { display: block; font-size: 1.02rem; }
+    .gallery-caption span { color: #c6bdca; font-size: .82rem; }
+    .features { display: grid; grid-template-columns: repeat(3,1fr); gap: 14px; }
+    .feature { min-height: 174px; padding: 23px; border-radius: 18px; background: var(--panel); border: 1px solid var(--line); }
+    .feature-icon { display: grid; place-items: center; width: 40px; height: 40px; margin-bottom: 16px; border-radius: 13px; background: #d9cce7; color: #000; font-weight: 900; font-size: 12px; }
+    .feature h3 { margin-bottom: 7px; font-size: 1.02rem; }
+    .feature p { margin-bottom: 0; color: var(--muted); font-size: .9rem; }
+
+    .video-groups { display: grid; gap: 28px; }
+    .video-group { padding: 23px; border: 1px solid var(--line); border-radius: 22px; background: linear-gradient(145deg, rgba(255,255,255,.045), rgba(255,255,255,.015)); }
+    .video-group-head { margin-bottom: 18px; }
+    .video-group-head h3 { margin: 0 0 5px; font-size: 1.28rem; }
+    .video-group-head p { margin: 0; color: var(--muted); font-size: .9rem; }
+    .video-grid { display: grid; grid-template-columns: repeat(4, minmax(0,1fr)); gap: 14px; }
+    .video-grid--three { display: flex; flex-wrap: wrap; justify-content: center; gap: 14px; }
+    .video-grid--three > .video-card { flex: 0 1 calc((100% - 42px) / 4); }
+    .video-card { min-width: 0; overflow: hidden; border: 1px solid var(--line); border-radius: 17px; background: #0b090e; }
+    .video-card video { display: block; width: 100%; aspect-ratio: 9 / 16; background: #050407; object-fit: cover; }
+    .video-caption { padding: 13px; }
+    .video-kind { display: block; margin-bottom: 5px; color: var(--gold); font-size: .66rem; font-weight: 850; letter-spacing: .11em; text-transform: uppercase; }
+    .video-caption strong { display: block; font-size: .9rem; line-height: 1.25; }
+    .bonus {
+      display: grid; grid-template-columns: 1fr auto; gap: 25px; align-items: center; margin-top: 18px;
+      padding: 24px 28px; border: 1px solid rgba(255,73,200,.3); border-radius: 20px;
+      background: linear-gradient(105deg, rgba(255,73,200,.09), rgba(164,91,255,.08));
+    }
+    .bonus strong { display: block; margin-bottom: 4px; font-size: 1.05rem; }
+    .bonus p { margin: 0; color: var(--muted); font-size: .91rem; }
+    .bonus-networking {
+      display: grid; place-items: center;
+      max-width: 850px; margin: 0 auto; padding: clamp(24px, 4vw, 38px); text-align: center;
+      border: 1px solid rgba(37,211,102,.32); border-radius: 18px;
+      background: linear-gradient(105deg, rgba(37,211,102,.1), rgba(164,91,255,.08));
+    }
+    .network-preview { width: min(100%, 640px); height: auto; margin: 0 auto 24px; border-radius: 16px; border: 1px solid rgba(37,211,102,.24); }
+    .bonus-networking-label { display: block; margin-bottom: 4px; color: #73e99b; font-size: .68rem; font-weight: 850; letter-spacing: .12em; text-transform: uppercase; }
+    .bonus-networking strong { display: block; font-size: clamp(1.25rem, 3vw, 1.75rem); }
+    .bonus-networking p { max-width: 620px; margin: 9px auto 0; color: var(--muted); font-size: .98rem; }
+
+    .bonus-visual {
+      margin-top: 28px; padding: clamp(20px, 4vw, 36px); text-align: center; overflow: hidden;
+      border: 1px solid rgba(255,211,107,.3); border-radius: 24px;
+      background: radial-gradient(ellipse at 50% 0%, rgba(164,91,255,.16), transparent 55%), linear-gradient(135deg, rgba(255,73,200,.08), rgba(14,10,20,.96) 52%, rgba(164,91,255,.1));
+    }
+    .bonus-heading { margin: 0 0 18px; color: var(--gold); font-size: clamp(1.55rem, 3vw, 2.2rem); font-weight: 900; letter-spacing: .16em; text-transform: uppercase; }
+    .bonus-layout { display: grid; grid-template-columns: minmax(210px, .68fr) minmax(0, 1fr); gap: clamp(24px, 5vw, 64px); align-items: center; max-width: 1050px; margin: 0 auto; text-align: left; }
+    .bonus-image-frame { display: grid; place-items: center; min-width: 0; }
+    .bonus-art { display: block; width: min(100%, 330px); height: min(70vh, 620px); object-fit: contain; border: 1px solid rgba(255,211,107,.25); border-radius: 18px; box-shadow: 0 18px 50px rgba(0,0,0,.4), 0 0 34px rgba(164,91,255,.12); }
+    .bonus-copy { display: grid; align-content: center; min-height: 220px; }
+    .bonus-caption { max-width: 620px; margin: 0; color: #fff; font-size: clamp(1.45rem, 3.3vw, 2.4rem); font-weight: 850; line-height: 1.22; }
+    .tag { padding: 8px 12px; border: 1px solid rgba(255,73,200,.4); border-radius: 999px; color: #ff9ce4; font-size: .75rem; font-weight: 850; letter-spacing: .08em; text-transform: uppercase; }
+    .offer { padding-top: 48px; }
+    .offer-card {
+      position: relative; overflow: hidden; max-width: 900px; margin: auto; padding: 42px;
+      border: 1px solid rgba(255,211,107,.28); border-radius: 30px;
+      background: radial-gradient(ellipse at 0 0, rgba(255,211,107,.12), transparent 34%), linear-gradient(135deg,#1b1420,#100d15 63%,#1c1025);
+      box-shadow: 0 24px 80px rgba(0,0,0,.3);
+    }
+    .offer-card::after { content: ""; position: absolute; width: 320px; height: 320px; right: -145px; top: -150px; border: 1px solid rgba(164,91,255,.28); border-radius: 50%; box-shadow: 0 0 0 35px rgba(164,91,255,.035), 0 0 0 70px rgba(164,91,255,.025); pointer-events: none; }
+    .offer-grid { position: relative; z-index: 1; display: grid; grid-template-columns: 1fr .78fr; gap: 38px; align-items: center; }
+    .offer-card h2 { font-size: clamp(2rem, 4vw, 3rem); }
+    .offer-list { display: grid; gap: 10px; margin: 22px 0 0; padding: 0; list-style: none; color: #ded6e2; }
+    .offer-list li::before { content: ""; display: inline-block; width: 6px; height: 6px; margin: 0 10px 2px 0; border-radius: 50%; background: var(--gold); }
+    .price-box { padding: 24px; border: 1px solid rgba(255,255,255,.12); border-radius: 22px; background: rgba(7,6,10,.55); text-align: center; }
+    .price-box small { color: #c6bdca; }
+    .offer-limited { display: inline-block; margin: 0 0 17px; padding: 7px 12px; border-radius: 999px; background: rgba(255,211,107,.14); color: var(--gold); font-size: .8rem; font-weight: 800; }
+    .price-before { margin: 0 0 8px; color: #c6bdca; font-size: 1.05rem; }
+    .price-before del { text-decoration-thickness: 2px; }
+    .price-saving { margin: 12px 0 16px; color: var(--gold); font-size: .9rem; font-weight: 700; }
+    .price { margin: 4px 0 2px; color: var(--gold); font-size: clamp(2.8rem, 5vw, 4rem); font-weight: 900; line-height: 1; letter-spacing: -.06em; }
+    .price-note { margin: 0 0 17px; color: #a99eae; font-size: .78rem; }
+    .price-box .btn { width: 100%; }
+    .price-period { font-size: .42em; letter-spacing: 0; }
+    .network-cta { margin-top: 20px; }
+    .bonus-networking .network-price { margin-top: 20px; }
+    .network-price strong { color: var(--gold); margin-top: 6px; }
+    .checkout-note { margin: 12px 0 0; color: #a99eae; font-size: .76rem; }
+    .access-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; align-items: stretch; }
+    .access-step { padding: 26px; border-radius: 20px; border: 1px solid var(--line); background: var(--panel); }
+    .access-step h3 { margin-bottom: 9px; }
+    .access-step p { color: var(--muted); margin-bottom: 0; }
+    .access-step a { color: var(--gold); font-weight: 750; }
+    .faq-list { max-width: 820px; margin: auto; display: grid; gap: 10px; }
+    details { border: 1px solid var(--line); border-radius: 16px; background: rgba(255,255,255,.025); }
+    summary { position: relative; cursor: pointer; padding: 19px 52px 19px 20px; font-weight: 750; list-style: none; }
+    summary::-webkit-details-marker { display: none; }
+    summary::after { content: "+"; position: absolute; right: 20px; top: 50%; transform: translateY(-50%); color: var(--gold); font-size: 1.4rem; }
+    details[open] summary::after { content: "−"; }
+    details p { padding: 0 20px 19px; margin: 0; color: var(--muted); }
+    .final-cta { padding: 54px 0 78px; }
+    .final-box { padding: 50px 25px; border: 1px solid rgba(164,91,255,.25); border-radius: 26px; text-align: center; background: radial-gradient(ellipse at 50% 0,rgba(164,91,255,.17),transparent 58%),var(--panel); }
+    .final-box h2 { max-width: 760px; margin-inline: auto; }
+    .final-box p { max-width: 620px; margin: 0 auto 23px; color: var(--muted); }
+    footer { border-top: 1px solid var(--line); padding: 27px 0 84px; color: #988f9f; font-size: .78rem; }
+    .footer-row { display: flex; justify-content: space-between; align-items: center; gap: 18px; }
+    .footer-copyright { margin-left: auto; text-align: right; flex-shrink: 0; max-width: 100%; }
+    .footer-brand { color: #e7dfeb; font-weight: 800; letter-spacing: .08em; }
+    .disclaimer { max-width: 600px; margin: 10px 0 0; color: #857c8c; font-size: .72rem; }
+    @media (max-width: 850px) {
+      .nav-links { display: none; }
+      .mobile-menu { display: block; }
+      .hero { padding-top: 16px; }
+      .hero-grid, .intro-grid, .offer-grid, .opening-video-grid { grid-template-columns: 1fr; gap: 35px; }
+      .opening-video-frame { width: min(100%, 370px); justify-self: center; }
+      .visual { max-width: 520px; justify-self: center; }
+      .hero-image { max-height: none; }
+      .intro-image { height: auto; }
+      .gallery-grid { grid-template-columns: 1fr 1fr; }
+      .gallery-card:first-child { grid-column: auto; }
+      .gallery-card, .gallery-card img { min-height: 0; }
+      .video-grid { grid-template-columns: repeat(2, minmax(0,1fr)); }
+      .video-grid--three > .video-card { flex-basis: calc(50% - 7px); }
+      .price-box { max-width: 460px; width: 100%; margin-inline: auto; }
+    }
+    @media (max-width: 600px) {
+      .wrap { width: min(100% - 28px, 1160px); }
+      .nav { min-height: 68px; }
+      .brand img { width: 42px; height: 42px; }
+      .brand-copy strong { font-size: .78rem; }
+      .brand-copy span { font-size: .59rem; }
+      .hero { padding: 12px 0 50px; }
+      .opening-video { padding: 58px 0 64px; }
+      .opening-video-grid { gap: 23px; }
+      h1 { font-size: clamp(2.55rem, 12vw, 3.6rem); }
+      .hero-copy { font-size: 1rem; }
+      .hero-actions { align-items: stretch; flex-direction: column; }
+      .hero-actions .btn { width: 100%; }
+      .visual { width: calc(100% - 8px); margin-top: 0; }
+      .hero-image { height: auto; max-height: none; aspect-ratio: auto; }
+      .floating-card { left: -6px; bottom: 16px; }
+      .ticker-inner { justify-content: flex-start; gap: 11px 20px; font-size: .66rem; }
+      section { padding: 67px 0; }
+      .section-head { margin-bottom: 30px; }
+      .intro-grid { gap: 24px; }
+      .intro-image { height: auto; }
+      .steps, .features, .access-grid { grid-template-columns: 1fr; }
+      .step { padding: 22px; }
+      .gallery-grid { grid-template-columns: 1fr; }
+      .gallery-card:first-child { grid-column: auto; }
+      .gallery-card, .gallery-card img { min-height: 0; max-height: none; }
+      .video-group { padding: 15px; }
+      .video-grid { gap: 9px; }
+      .video-grid--three { gap: 9px; }
+      .video-grid--three > .video-card { flex-basis: calc(50% - 4.5px); }
+      .video-grid--three > .video-card:last-child { flex-basis: 100%; max-width: 430px; }
+      .video-caption { padding: 10px; }
+      .video-caption strong { font-size: .78rem; }
+      .bonus { grid-template-columns: 1fr; padding: 22px; }
+      .bonus .tag { justify-self: start; }
+      .bonus-layout { grid-template-columns: 1fr; gap: 20px; text-align: center; }
+      .bonus-art { width: min(100%, 340px); height: min(58vh, 560px); }
+      .bonus-copy { min-height: 0; }
+      .bonus-caption { margin: 0 auto; text-align: center; font-size: clamp(1.25rem, 5vw, 1.6rem); }
+      .offer-card { padding: 28px 19px; }
+      .offer-grid { gap: 26px; }
+      .access-step { padding: 22px; }
+      .final-box { padding: 38px 20px; }
+      .footer-row { align-items: flex-start; flex-direction: column; }
+      footer { padding-bottom: 98px; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after { transition-duration: .01ms !important; animation-duration: .01ms !important; }
+    }
+
+    /* Player limpo: sem barra, duração ou controles de download. */
+    .video-player { position: relative; width: 100%; aspect-ratio: 9 / 16; overflow: hidden; background: #050407; isolation: isolate; }
+    .opening-video-frame .video-player { border-radius: 20px; background: #050508; }
+    .video-card .video-player { border-radius: 0; }
+    .video-player video { display: block; width: 100%; height: 100%; aspect-ratio: auto; object-fit: cover; background: #050407; }
+    .opening-video-frame .video-player video { border-radius: 20px; }
+    .video-player-button {
+      position: absolute; z-index: 2; inset: 50% auto auto 50%; transform: translate(-50%, -50%);
+      display: inline-flex; align-items: center; justify-content: center; gap: 11px; min-height: 60px;
+      padding: 10px 17px; border: 1px solid rgba(255,211,107,.72); border-radius: 999px;
+      background: rgba(16,12,21,.84); color: #fff; font: inherit; font-weight: 850; cursor: pointer;
+      box-shadow: 0 12px 38px rgba(0,0,0,.38); backdrop-filter: blur(9px);
+    }
+    .video-player-button[hidden] { display: none; }
+    .video-player-button:hover { transform: translate(-50%, -50%) scale(1.04); }
+    .video-player-button:focus-visible { outline: 3px solid #fff; outline-offset: 4px; }
+    .video-player-symbol {
+      display: grid; place-items: center; flex: 0 0 40px; width: 40px; height: 40px; padding-left: 3px;
+      border-radius: 50%; background: linear-gradient(140deg, var(--gold), #ffb74c 55%, #ff8f55); color: #21140a; font-size: 1.08rem;
+    }
+    .video-player-label { white-space: nowrap; }
+    @media (max-width: 600px) {
+      .video-player-button { min-height: 52px; gap: 8px; padding: 7px 12px; font-size: .86rem; }
+      .video-player-symbol { flex-basis: 36px; width: 36px; height: 36px; }
+    }
+
+    .support-button { animation: support-float 3.2s ease-in-out infinite; }
+    .support-button:hover, .support-button:focus-visible { animation-play-state: paused; }
+    @keyframes support-float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-4px); }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .support-button { animation: none; }
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <nav class="nav wrap" aria-label="Navegação principal">
+      <a class="brand" href="#inicio" aria-label="Biblioteca de Prompts, início">
+        <img src="assets/biblioteca-logo-simples.webp" alt="">
+        <span class="brand-copy"><strong>BIBLIOTECA</strong><span>DE PROMPTS</span></span>
+      </a>
+      <div class="nav-links">
+        <a href="#como-funciona">Como funciona</a>
+        <a href="#conteudo">O que você recebe</a>
+        <a href="#pre-visualizacao">Prévia</a>
+        <a href="#videos">Vídeos</a>
+        <a href="#duvidas">Dúvidas</a>
+        <a href="#suporte">Suporte</a>
+      </div>
+    <details class="mobile-menu">
+      <summary aria-label="Abrir menu de navegação"><span class="mobile-menu-label">Menu</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"/></svg></summary>
+      <nav class="mobile-menu-links" aria-label="Navegação no celular">
+        <a href="#como-funciona">Como funciona</a>
+        <a href="#conteudo">O que você recebe</a>
+        <a href="#pre-visualizacao">Prévia</a>
+        <a href="#videos">Vídeos</a>
+        <a href="#duvidas">Dúvidas</a>
+        <a href="#suporte">Suporte</a>
+      </nav>
+    </details>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero" id="inicio">
+      <div class="hero-grid wrap">
+        <div class="visual">
+          <img class="hero-image" src="assets/criacao-com-ia.png" alt="Criadora usando um computador para estruturar um prompt de vídeo com inteligência artificial">
+          <div class="floating-card"><small>Biblioteca de Prompts</small><strong>Mais direção para sua próxima criação.</strong></div>
+        </div>
+        <div>
+          <div class="eyebrow">Para criadores do TikTok Shop</div>
+          <h1>Transforme ideias em conteúdo com <span class="shine">prompts prontos.</span></h1>
+          <p class="hero-copy">Uma biblioteca prática para organizar seus comandos de imagem e vídeo, criar ganchos, demonstrar produtos e montar CTAs com inteligência artificial, sem começar cada criação do zero.</p>
+          <div class="hero-actions">
+            <a class="btn btn-outline" href="#como-funciona">Ver como funciona</a>
+          </div>
+          <p class="microcopy">Material digital • foco em TikTok Shop • prompts para adaptar</p>
+          <div class="hero-badges">
+            <span class="pill">Prompts para copiar e adaptar</span>
+            <span class="pill">Conteúdo com IA</span>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <section class="opening-video" id="pre-visualizacao">
+      <div class="opening-video-grid wrap">
+        <div class="opening-video-copy">
+          <div class="eyebrow">Menos tempo na tela em branco</div>
+          <h2>Uma ideia travou? Comece por um roteiro mais claro.</h2>
+          <p>Acompanhe a dificuldade de criar um gancho, escolher o que mostrar e pensar no CTA e veja como organizar esse processo com pontos de partida para adaptar ao seu produto.</p>
+          <p class="microcopy">Dê play para ouvir a narração e ver cada etapa em cena.</p>
+        </div>
+        <div class="opening-video-frame">
+          <video playsinline preload="metadata" poster="https://d2ol7oe51mr4n9.cloudfront.net/user_3JjcSc38vfTWI4E5PJ4zQSRtUix/206a6c23-ee6f-43da-b772-aee573ee9ead.jpg" aria-label="Vídeo com narração sobre a Biblioteca de Prompts para TikTok Shop">
+            <source src="https://d2ol7oe51mr4n9.cloudfront.net/user_3JjcSc38vfTWI4E5PJ4zQSRtUix/a2de2903-225e-4945-bf3b-d544738e23b7.mp4" type="video/mp4">
+            Seu navegador não conseguiu reproduzir este vídeo.
+          </video>
+        </div>
+      </div>
+    </section>
+
+    <div class="ticker" aria-label="Etapas do método">
+      <div class="ticker-inner wrap"><span><b>01</b> Escolha</span><span aria-hidden="true">·</span><span><b>02</b> Adapte</span><span aria-hidden="true">·</span><span><b>03</b> Gere e revise</span><span aria-hidden="true">·</span><span><b>04</b> Publique</span></div>
+    </div>
+
+    <section>
+      <div class="intro-grid wrap">
+        <div class="intro-copy">
+          <div class="eyebrow">Menos tela em branco</div>
+          <h2>Saiba o que pedir para a IA em cada etapa do vídeo.</h2>
+          <p>Um bom comando ajuda a explicar a cena, o produto e o movimento que você quer mostrar. A Biblioteca reúne estruturas para você partir de uma ideia mais clara e personalizar para cada conteúdo.</p>
+          <ul class="check-list">
+            <li><span class="check">✓</span><span>Use um ponto de partida para ganchos, demonstrações e chamadas para ação.</span></li>
+            <li><span class="check">✓</span><span>Adapte produto, cenário, modelo e detalhes da gravação ao seu objetivo.</span></li>
+            <li><span class="check">✓</span><span>Organize seus comandos por tema para encontrar a ideia certa com mais facilidade.</span></li>
+          </ul>
+        </div>
+        <div class="image-frame intro-image">
+          <img src="assets/ideia-para-prompt-v2.webp" width="1536" height="1024" loading="lazy" decoding="async" alt="Criadora planejando um vídeo no notebook, com ideias de gancho, demonstração de produto e CTA para pedir à IA.">
+        </div>
+      </div>
+    </section>
+
+    <section class="how" id="como-funciona">
+      <div class="wrap">
+        <div class="section-head">
+          <div class="eyebrow">Simples de aplicar</div>
+          <h2>Do prompt à ideia de vídeo em três passos.</h2>
+          <p>Use a estrutura como base e personalize o comando para que ele combine com o produto que você quer apresentar.</p>
+        </div>
+        <div class="steps">
+          <article class="step"><span class="step-num">01</span><h3>Escolha o objetivo</h3><p>Comece pelo tipo de conteúdo: gancho, detalhe do produto, demonstração, movimento ou CTA.</p></article>
+          <article class="step"><span class="step-num">02</span><h3>Adapte os detalhes</h3><p>Inclua as características reais do produto, a cena desejada e as referências que importam para o resultado.</p></article>
+          <article class="step"><span class="step-num">03</span><h3>Gere e revise</h3><p>Leve o comando à sua ferramenta de IA, confira o resultado e faça os ajustes necessários antes de publicar.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section id="conteudo">
+      <div class="wrap">
+        <div class="section-head">
+          <div class="eyebrow">Veja o estilo do material</div>
+          <h2>Comandos pensados para sair da ideia e chegar à cena.</h2>
+          <p>Exemplos do universo visual da Biblioteca: apresentação de produto, movimentos e instruções mais claras para a IA.</p>
+        </div>
+        <div class="gallery-grid">
+          <article class="gallery-card">
+            <img src="assets/copiar-e-adaptar.png" alt="Exemplo de prompt organizado para copiar e adaptar na criação de um vídeo">
+            <div class="gallery-caption"><strong>Estruturas prontas para adaptar</strong><span>Troque as referências e ajuste ao seu produto.</span></div>
+          </article>
+          <article class="gallery-card">
+            <img src="assets/movimentos.png" alt="Exemplo de conteúdo com IA demonstrando movimentos para um vídeo">
+            <div class="gallery-caption"><strong>Movimentos e demonstrações</strong><span>Descreva com mais clareza o que deve acontecer na cena.</span></div>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="wrap">
+        <div class="section-head">
+          <div class="eyebrow">Dentro da Biblioteca</div>
+          <h2>Encontre um comando para cada parte do seu conteúdo.</h2>
+          <p>O material é voltado à criação de vídeos e imagens de produtos para TikTok Shop com ferramentas de inteligência artificial.</p>
+        </div>
+        <div class="features">
+          <article class="feature"><span class="feature-icon" aria-hidden="true">●</span><h3>Ganchos visuais</h3><p>Ideias para começar o vídeo chamando atenção para o produto ou para a cena.</p></article>
+          <article class="feature"><span class="feature-icon" aria-hidden="true">●</span><h3>Demonstração de produto</h3><p>Comandos para mostrar detalhes, caimento, uso e características do item.</p></article>
+          <article class="feature"><span class="feature-icon" aria-hidden="true">●</span><h3>Movimentos e cenas</h3><p>Orientações para descrever ações, poses, enquadramentos e mudanças de câmera.</p></article>
+          <article class="feature"><span class="feature-icon" aria-hidden="true">●</span><h3>CTAs e encerramentos</h3><p>Estruturas para fechar o conteúdo com uma chamada coerente com sua oferta.</p></article>
+          <article class="feature"><span class="feature-icon" aria-hidden="true">●</span><h3>Referências de imagem</h3><p>Comandos que ajudam a orientar aparência, cenário e fidelidade ao produto.</p></article>
+          <article class="feature"><span class="feature-icon" aria-hidden="true">●</span><h3>Organização por tópicos</h3><p>Temas separados para você localizar e reutilizar ideias com mais facilidade.</p></article>
+        </div>
+        <div class="bonus-visual" aria-labelledby="bonus-heading">
+          <h3 class="bonus-heading" id="bonus-heading">Comunidade Network no WhatsApp</h3>
+          <div class="bonus-networking" aria-label="Comunidade Network no WhatsApp opcional, vendida separadamente">
+            <img class="network-preview" src="assets/network-whatsapp-comunidade.png" alt="Comunidade Network no WhatsApp com criadores trocando ideias sobre vídeos." loading="lazy" width="1536" height="1024">
+            <div><span class="bonus-networking-label">Adicional opcional • vendido separadamente</span><strong>Comunidade Network no WhatsApp</strong><p>Um espaço para trocar ideias com outras pessoas que também estão criando conteúdo digital.</p>
+              <p>A comunidade não está incluída na assinatura da Biblioteca. Para participar também, adicione a Comunidade Network no WhatsApp como opção extra no checkout (order bump).</p>
+              <p class="network-price">De <del>R$ 129,90</del> por <strong>R$ 69,90</strong></p>
+              <p>Compra opcional, cobrada separadamente da assinatura. Confira as condições de acesso no checkout.</p></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    <section class="video-showcase" id="videos">
+      <div class="wrap">
+        <div class="section-head">
+          <div class="eyebrow">Exemplos em vídeo</div>
+          <h2>Veja os prompts ganhando forma.</h2>
+          <p>Assista aos exemplos organizados por objetivo. Toque no vídeo para reproduzir; no celular, ele pode abrir em tela cheia.</p>
+        </div>
+        <div class="video-groups">
+  <div class="video-group"><div class="video-group-head"><h3>Ganchos e transições</h3><p>Entradas, movimentos de câmera e revelações de look.</p></div><div class="video-grid">
+    <article class="video-card"><video playsinline preload="none" poster="assets/videos/poster-camiseta-amarela.jpg"><source src="assets/videos/video-camiseta-amarela.mp4" type="video/mp4">Seu navegador não conseguiu reproduzir este vídeo.</video><div class="video-caption"><span class="video-kind">Transição</span><strong>Camiseta amarela estampada</strong></div></article>
+    <article class="video-card"><video playsinline preload="none" poster="assets/videos/poster-03.jpg"><source src="assets/videos/video-03.mp4" type="video/mp4">Seu navegador não conseguiu reproduzir este vídeo.</video><div class="video-caption"><span class="video-kind">Gancho visual</span><strong>Entrada com a mão na câmera</strong></div></article>
+    <article class="video-card"><video playsinline preload="none" poster="assets/videos/poster-06.jpg"><source src="assets/videos/video-06.mp4" type="video/mp4">Seu navegador não conseguiu reproduzir este vídeo.</video><div class="video-caption"><span class="video-kind">Revelação</span><strong>Estampa do moletom</strong></div></article>
+    <article class="video-card"><video playsinline preload="none" poster="assets/videos/poster-08.jpg"><source src="assets/videos/video-08.mp4" type="video/mp4">Seu navegador não conseguiu reproduzir este vídeo.</video><div class="video-caption"><span class="video-kind">Movimento</span><strong>Apresentação de look no shopping</strong></div></article>
+  </div></div>
+  <div class="video-group"><div class="video-group-head"><h3>Demonstração e caimento</h3><p>Modelos mostram detalhes, peças e caimento dos looks.</p></div><div class="video-grid video-grid--three">
+    <article class="video-card"><video playsinline preload="none" poster="assets/videos/poster-04.jpg"><source src="assets/videos/video-04.mp4" type="video/mp4">Seu navegador não conseguiu reproduzir este vídeo.</video><div class="video-caption"><span class="video-kind">Caimento</span><strong>Regata amarela com jeans</strong></div></article>
+    <article class="video-card"><video playsinline preload="none" poster="assets/videos/poster-05.jpg"><source src="assets/videos/video-05.mp4" type="video/mp4">Seu navegador não conseguiu reproduzir este vídeo.</video><div class="video-caption"><span class="video-kind">Demonstração</span><strong>Look preto com short</strong></div></article>
+    <article class="video-card"><video playsinline preload="none" poster="assets/videos/poster-10.jpg"><source src="assets/videos/video-10.mp4" type="video/mp4">Seu navegador não conseguiu reproduzir este vídeo.</video><div class="video-caption"><span class="video-kind">Demonstração</span><strong>Cinta modeladora no look</strong></div></article>
+  </div></div>
+  <div class="video-group"><div class="video-group-head"><h3>Apresentação de produto e CTA</h3><p>Exemplos de encerramento e aproximação para destacar o produto.</p></div><div class="video-grid">
+    <article class="video-card"><video playsinline preload="none" poster="assets/videos/poster-07.jpg"><source src="assets/videos/video-07.mp4" type="video/mp4">Seu navegador não conseguiu reproduzir este vídeo.</video><div class="video-caption"><span class="video-kind">CTA</span><strong>Vestido vinho</strong></div></article>
+    <article class="video-card"><video playsinline preload="none" poster="assets/videos/poster-09.jpg"><source src="assets/videos/video-09.mp4" type="video/mp4">Seu navegador não conseguiu reproduzir este vídeo.</video><div class="video-caption"><span class="video-kind">Close de produto</span><strong>Detalhe em primeiro plano</strong></div></article>
+    <article class="video-card"><video playsinline preload="none" poster="assets/videos/poster-14.jpg" aria-label="Cena de reação a uma demonstração de roupa"><source src="assets/videos/video-14.mp4" type="video/mp4">Seu navegador não conseguiu reproduzir este vídeo.</video><div class="video-caption"><span class="video-kind">Storytelling</span><strong>Reação ao look na tela</strong></div></article>
+    <article class="video-card"><video playsinline preload="none" poster="assets/videos/poster-15.jpg" aria-label="Entrega de um pedido do TikTok Shop"><source src="assets/videos/video-15.mp4" type="video/mp4">Seu navegador não conseguiu reproduzir este vídeo.</video><div class="video-caption"><span class="video-kind">TikTok Shop</span><strong>Pedido recebido em cena</strong></div></article>
+  </div></div>
+  <div class="video-group"><div class="video-group-head"><h3>Novos vídeos enviados</h3><p>Mais exemplos para assistir.</p></div><div class="video-grid video-grid--three">
+    <article class="video-card"><video playsinline preload="none" poster="assets/videos/poster-11.jpg" aria-label="Conjunto fitness rosa em movimento"><source src="assets/videos/video-11.mp4" type="video/mp4">Seu navegador não conseguiu reproduzir este vídeo.</video><div class="video-caption"><span class="video-kind">Demonstração</span><strong>Conjunto fitness rosa em movimento</strong></div></article>
+    <article class="video-card"><video playsinline preload="none" poster="assets/videos/poster-12.jpg" aria-label="Vestido floral amarelo em cena"><source src="assets/videos/video-12.mp4" type="video/mp4">Seu navegador não conseguiu reproduzir este vídeo.</video><div class="video-caption"><span class="video-kind">Caimento</span><strong>Vestido floral amarelo em cena</strong></div></article>
+    <article class="video-card"><video playsinline preload="none" poster="assets/videos/poster-13.jpg" aria-label="Gestos de abertura com look claro"><source src="assets/videos/video-13.mp4" type="video/mp4">Seu navegador não conseguiu reproduzir este vídeo.</video><div class="video-caption"><span class="video-kind">Movimento</span><strong>Gestos de abertura com look claro</strong></div></article>
+  </div></div>
+</div>
+        <figure class="multiplatform-banner image-frame">
+          <img src="assets/multiplataformas-v2.webp" width="1536" height="1024" loading="lazy" decoding="async" alt="Utilize o mesmo vídeo em várias redes diferentes: TikTok, Shopee, Kwai, YouTube, Facebook, Instagram e Mercado Livre.">
+          <figcaption>Um vídeo, várias possibilidades. Adapte o formato e a legenda para cada plataforma.</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section>
+      <div class="wrap">
+        <div class="section-head">
+          <div class="eyebrow">Depois da compra</div>
+          <h2>Receba as orientações para liberar seu acesso.</h2>
+          <p>O seu material informa que a liberação é feita após o envio do comprovante pelo Instagram.</p>
+        </div>
+        <div class="access-grid">
+          <article class="access-step"><span class="step-num">01</span><h3>Finalize o pagamento</h3><p>No final da página, confira a oferta e conclua a compra pelo checkout da Cakto.</p></article>
+          <article class="access-step"><span class="step-num">02</span><h3>Envie o comprovante</h3><p>Siga <a href="https://www.instagram.com/vanildo.tavares_guia/" target="_blank" rel="noopener noreferrer">@vanildo.tavares_guia</a> e envie o comprovante da compra pelo Direct para receber as instruções de acesso.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section id="duvidas">
+      <div class="wrap">
+        <div class="section-head">
+          <div class="eyebrow">Perguntas frequentes</div>
+          <h2>Antes de acessar, tire suas dúvidas.</h2>
+        </div>
+        <div class="faq-list">
+          <details><summary>O que é a Biblioteca de Prompts?</summary><p>É um material digital com estruturas de comandos para apoiar a criação de imagens e vídeos com IA, com foco em conteúdos de produto para TikTok Shop.</p></details>
+          <details><summary>Preciso saber criar prompts?</summary><p>Não é necessário começar com um comando próprio. Você pode partir de uma estrutura da Biblioteca e adaptar as informações do produto, da cena e do estilo que deseja.</p></details>
+          <details><summary>Quais ferramentas de IA posso usar?</summary><p>Os prompts são instruções para ferramentas de criação com IA. A compatibilidade e os recursos disponíveis dependem da ferramenta escolhida; algumas podem ter planos pagos.</p></details>
+          <details><summary>O acesso é uma assinatura?</summary><p>Sim. A Biblioteca custa R$ 29,90 por mês, com cobrança mensal recorrente e acesso enquanto a assinatura estiver ativa. Consulte as condições de pagamento e cancelamento no checkout.</p></details>
+          <details><summary>A Comunidade Network no WhatsApp está incluída?</summary><p>Não. A comunidade é um adicional opcional, vendido separadamente como order bump no checkout: de R$ 129,90 por R$ 69,90. Se quiser participar também, selecione essa opção ao finalizar a compra.</p></details>
+          <details><summary>Como recebo o acesso?</summary><p>Depois da compra, siga @vanildo.tavares_guia e envie o comprovante pelo Direct do Instagram para receber as orientações de liberação, conforme informado no material.</p></details>
+          <details><summary>A Biblioteca garante visualizações ou vendas?</summary><p>Não. O material oferece estruturas para apoiar a criação. Visualizações, alcance e vendas dependem de vários fatores e não são garantidos.</p></details>
+          <details><summary>Quais são as formas de pagamento e as condições de reembolso?</summary><p>Confira as condições atualizadas diretamente no checkout da Cakto antes de concluir a compra.</p></details>
+        </div>
+      </div>
+    </section>
+
+    <section id="suporte">
+      <div class="wrap">
+        <div class="section-head">
+          <div class="eyebrow">Atendimento</div>
+          <h2>Suporte da Biblioteca de Prompts</h2>
+          <p>Precisa de ajuda com seu acesso ou tem alguma dúvida sobre o material? Fale com nosso suporte pelo WhatsApp.</p>
+          <a class="btn support-button" href="https://wa.me/5562996542244?text=Ol%C3%A1%21%20Preciso%20de%20suporte%20com%20a%20Biblioteca%20de%20Prompts." target="_blank" rel="noopener noreferrer">Fala com o suporte no WhatsApp</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="offer" id="acesso">
+      <div class="wrap">
+        <div class="offer-card">
+          <div class="offer-grid">
+            <div>
+              <div class="eyebrow">Assinatura mensal da Biblioteca</div>
+              <h2>Tenha uma base pronta para criar seu próximo conteúdo.</h2>
+              <p class="muted">Acesse o material digital, escolha os prompts que fazem sentido e personalize cada comando para a sua ideia.</p>
+              <ul class="offer-list">
+                <li>Biblioteca de prompts para TikTok Shop</li>
+                <li>Estruturas para imagem, vídeo, ganchos e CTAs</li>
+                <li>Acesso à Biblioteca enquanto a assinatura estiver ativa</li>
+                <li>Pagamento pelo checkout da Cakto</li>
+              </ul>
+            </div>
+            <div class="price-box">
+              <p class="offer-limited">Oferta por tempo limitado</p>
+              <p class="price-before">De <del>R$ 59,90</del></p>
+              <small>Assine por apenas</small>
+              <div class="price">R$ 29,90<span class="price-period">/mês</span></div>
+              <p class="price-saving">Assinatura com cobrança mensal recorrente</p>
+              <p class="price-note">O acesso à Biblioteca depende da assinatura ativa. Comunidade Network no WhatsApp opcional, vendida separadamente por R$ 69,90.</p>
+              <a class="btn" href="https://pay.cakto.com.br/kxcwqpf_1190996" target="_blank" rel="noopener noreferrer">Quero assinar por R$ 29,90/mês <span aria-hidden="true">→</span></a>
+              <p class="checkout-note">Você será direcionado ao ambiente de pagamento da Cakto.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer>
+    <div class="footer-row wrap">
+      <div><div class="footer-brand">BIBLIOTECA DE PROMPTS</div><p class="disclaimer">Material educacional de apoio à criação com inteligência artificial. Não há promessa ou garantia de alcance, visualizações ou vendas. Verifique as regras das ferramentas e plataformas utilizadas.</p></div>
+      <span class="footer-copyright">© 2026 Biblioteca de Prompts.<br>Todos os direitos reservados.</span>
+    </div>
+  </footer>
+
+<script>
+  const mobileMenu = document.querySelector('.mobile-menu');
+  mobileMenu.querySelectorAll('a').forEach((link) => {
+    link.addEventListener('click', () => { mobileMenu.open = false; });
+  });
+  document.addEventListener('click', (event) => {
+    if (!mobileMenu.contains(event.target)) mobileMenu.open = false;
+  });
+  document.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape' && mobileMenu.open) {
+      mobileMenu.open = false;
+      mobileMenu.querySelector('summary').focus();
+    }
+  });
+(() => {
+  const visibilityObserver = new IntersectionObserver((entries) => {
+    entries.forEach(({ target, isIntersecting, intersectionRatio }) => {
+      if (!isIntersecting || intersectionRatio < 0.25) target.pause();
+    });
+  }, { threshold: [0, 0.25] });
+
+  document.querySelectorAll("video").forEach((video) => {
+    visibilityObserver.observe(video);
+    video.removeAttribute("controls");
+    video.setAttribute("controlslist", "nodownload nofullscreen noremoteplayback noplaybackrate");
+    video.setAttribute("disablepictureinpicture", "");
+    video.setAttribute("disableremoteplayback", "");
+    video.setAttribute("playsinline", "");
+
+    const player = document.createElement("div");
+    player.className = "video-player";
+    video.parentNode.insertBefore(player, video);
+    player.appendChild(video);
+
+    const button = document.createElement("button");
+    button.type = "button";
+    button.className = "video-player-button";
+    button.innerHTML = '<span class="video-player-symbol" aria-hidden="true">▶</span><span class="video-player-label">Assistir vídeo</span>';
+    player.appendChild(button);
+
+    const label = button.querySelector(".video-player-label");
+    const update = () => {
+      const playing = !video.paused && !video.ended;
+      const text = video.ended ? "Assistir novamente" : "Assistir vídeo";
+      player.classList.toggle("is-playing", playing);
+      button.hidden = playing;
+      label.textContent = text;
+      button.setAttribute("aria-label", text);
+    };
+
+    button.addEventListener("click", () => {
+      if (video.ended) video.currentTime = 0;
+      video.play().catch(update);
+    });
+    ["play", "playing", "pause", "ended", "error"].forEach((eventName) => video.addEventListener(eventName, update));
+    player.addEventListener("contextmenu", (event) => event.preventDefault());
+    video.addEventListener("dragstart", (event) => event.preventDefault());
+    update();
+  });
+})();
+</script>
+
+<script src="intro.js"></script>
+</body>
+</html>
